@@ -594,7 +594,7 @@ void toUpperCase(string& s)
 void determineAction(Player player, Dealer dealer)
 {
 	//Get user input 
-	cout << "What would you like to do? (type \"help\" to list options ))" << endl;
+	cout << "What would you like to do? (stay/hit)" << endl;
 	cin >> player.decision;
 	string decision = player.decision;
 
@@ -603,13 +603,50 @@ void determineAction(Player player, Dealer dealer)
 
 	if(decision == "HELP")
 	{
-		cout << "Helping";
+		cout << "Type stay, or hit.";
 	}
 
 
 	if(decision == "STAY")
 	{
-		cout << "Staying";
+	    while(dealer.handTotal < 17)
+	    {
+	        dealer.receiveCard();
+		    dealer.displayHand();
+	        dealer.calcDealerHand();
+	        cout << endl << "Total:" << dealer.handTotal << endl;
+    	    cout << "\n-----------------" << endl;
+	    }
+	    
+	    
+	    
+	    //Determines winner or loser after stay
+	   if(player.handTotal > 21)
+	   {
+	       cout << "You lose!";
+	   }
+	   else
+	   {
+	       if(dealer.handTotal > 21)
+	       {
+	           cout << "You win!";
+	       }
+	       else
+	       {
+	           if(player.handTotal > dealer.handTotal)
+	           {
+	               cout << "You win!";
+	           }
+	           else
+	           {
+	               cout << "You lose!";
+	           }
+	       }
+	   }
+	   
+	   
+	   
+	    
 	}
 
 	if(decision == "HIT")
@@ -622,6 +659,11 @@ void determineAction(Player player, Dealer dealer)
 		//Display total value of hand
 		cout << endl << "Total:" << player.handTotal << endl;
 		cout << "\n-----------------" << endl;
+
+    	dealer.displayHand();
+    	dealer.calcDealerHand();
+    	cout << endl << "Total:" << dealer.handTotal << endl;
+    	cout << "\n-----------------" << endl;
 
 
 		if(player.handTotal > 21)
@@ -696,6 +738,5 @@ int main()
 
 	return 0;
 }
-
 
 
