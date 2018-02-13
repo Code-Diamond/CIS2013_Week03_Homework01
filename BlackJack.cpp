@@ -23,7 +23,17 @@ string playerHand[20];
 string dealerHand[20];
 
 
-//Player Class
+//Clear cnosole with new lines
+void clearConsole()
+{
+	for(int i = 0 ; i < 100; i++)
+	{
+		cout << "\n";
+	}
+}
+
+
+//Player Class, blueprint for player object
 class Player
 {
 public:
@@ -102,7 +112,7 @@ public:
 		}
 
 	}
-
+	//Displays the player's hand
 	void displayHand()
 	{
 		cout << "Your hand:\n";
@@ -581,8 +591,14 @@ void toUpperCase(string& s)
 
 
 //Determine action based on user decision
-void determineAction(string decision, Player player, Dealer dealer)
+void determineAction(Player player, Dealer dealer)
 {
+	//Get user input 
+	cout << "What would you like to do? (type \"help\" to list options ))" << endl;
+	cin >> player.decision;
+	string decision = player.decision;
+
+
 	toUpperCase(decision);
 
 	if(decision == "HELP")
@@ -598,6 +614,7 @@ void determineAction(string decision, Player player, Dealer dealer)
 
 	if(decision == "HIT")
 	{
+		clearConsole();
 		dealer.dealCard();
 		player.displayHand();
 		player.calcHand();
@@ -607,10 +624,17 @@ void determineAction(string decision, Player player, Dealer dealer)
 		cout << "\n-----------------" << endl;
 
 
-		if(player.handTotal > 21 && aceCounter == 0)
+		if(player.handTotal > 21)
 		{
 			cout << "You lose";
 		}
+		else
+		{
+
+			determineAction(player, dealer);
+		}
+
+
 
 
 	}
@@ -618,8 +642,10 @@ void determineAction(string decision, Player player, Dealer dealer)
 	
 }
 
+
+
 //Count the numnber of aces
-void countAces(Player player)
+void countAces()
 {
 
 }
@@ -657,11 +683,8 @@ void newGame()
 
 
 
-	//Get user input 
-	cout << "What would you like to do? (type \"help\" to list options ))" << endl;
-	cin >> player.decision;
-
-	determineAction(player.decision, player, dealer);
+	
+	determineAction(player, dealer);
 
 }
 
