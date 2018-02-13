@@ -9,14 +9,7 @@
 #include <chrono>
 #include <thread>
 
-
 using namespace std;
-
-
-
-
-
-
 
 //Global variables
 int x, y;
@@ -24,38 +17,18 @@ string currentCard[2];
 string deck[520][2];
 
 int dealIteration = 0;
+int aceCounter = 0;
 
-
-//string playerHands[2][20];
 string playerHand[20];
-
 string dealerHand[20];
 
-/*
 
-Player Class
-
-*/
-
-
+//Player Class
 class Player
 {
 public:
-
-	int capital;
-	int startingCapital;
-
 	string decision;
-
-	bool insurance;
-	int insuranceAmt;
-
-	bool busted = false;
-	bool doubleDown;
 	int handTotal = 0;
-	int aceModifier = 0;
-
-
 	void calcHand()
 	{
 		handTotal = 0;
@@ -127,7 +100,6 @@ public:
 			}
 
 		}
-		handTotal = handTotal - aceModifier;
 
 	}
 
@@ -146,33 +118,13 @@ public:
 	}
 };
 
-
-
-/*
-
-Dealer Class
-
-*/
-
-
-
+//Dealer Class
 class Dealer
 {
 public:
 	//Object Variables
-	int capital;
-	int startingCapital;
-
-	string decision;
-
-	bool insurance;
-	int insuranceAmt;
-
-	bool busted = false;
-	bool doubleDown;
 
 	int handTotal = 0;
-	int aceModifier = 0;
 
 	void dialogue()
 	{
@@ -187,40 +139,6 @@ public:
 			//Sleep for 1 second...
 			this_thread::sleep_for(std::chrono::seconds(1));
 		}
-	}
-
-	void payout()
-	{
-
-	}
-
-
-	void calcHand()
-	{
-
-	}
-
-
-	void bustCheck()
-	{
-
-	}
-
-
-	void seventeenCheck()
-	{
-
-	}
-
-
-	void evalWinner()
-	{
-
-	}
-
-	void evalSplit()
-	{
-
 	}
 
 
@@ -646,12 +564,8 @@ public:
 			}
 
 		}
-		handTotal = handTotal - aceModifier;
+		
 	}
-
-
-
-
 };
 
 //To uppercase function
@@ -693,7 +607,7 @@ void determineAction(string decision, Player player, Dealer dealer)
 		cout << "\n-----------------" << endl;
 
 
-		if(player.handTotal > 21)
+		if(player.handTotal > 21 && aceCounter == 0)
 		{
 			cout << "You lose";
 		}
@@ -704,9 +618,12 @@ void determineAction(string decision, Player player, Dealer dealer)
 	
 }
 
+//Count the numnber of aces
+void countAces(Player player)
+{
 
-
-
+}
+//Start a new game of BlackJack
 void newGame()
 {
 	//Use time as a seed for the RNG
@@ -745,8 +662,6 @@ void newGame()
 	cin >> player.decision;
 
 	determineAction(player.decision, player, dealer);
-
-
 
 }
 
