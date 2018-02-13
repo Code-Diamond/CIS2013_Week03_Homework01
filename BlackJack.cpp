@@ -32,6 +32,19 @@ void clearConsole()
 	}
 }
 
+//Count the numnber of aces
+void countAces()
+{
+    for(int i = 0; i < 20; i=i+2)
+    {
+        if(playerHand[i] == "Ace")
+        {
+            aceCounter++;
+        }
+            
+    }
+}
+
 
 //Player Class, blueprint for player object
 class Player
@@ -603,7 +616,11 @@ void determineAction(Player player, Dealer dealer)
 
 	if(decision == "HELP")
 	{
-		cout << "Type stay, or hit.";
+		cout << "Ace Counter: " << endl;
+		
+		countAces();
+		cout << aceCounter;
+		
 	}
 
 
@@ -676,9 +693,6 @@ void determineAction(Player player, Dealer dealer)
 			determineAction(player, dealer);
 		}
 
-
-
-
 	}
 
 	
@@ -686,11 +700,7 @@ void determineAction(Player player, Dealer dealer)
 
 
 
-//Count the numnber of aces
-void countAces()
-{
 
-}
 //Start a new game of BlackJack
 void newGame()
 {
@@ -738,5 +748,3 @@ int main()
 
 	return 0;
 }
-
-
