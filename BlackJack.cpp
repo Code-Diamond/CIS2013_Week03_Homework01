@@ -480,8 +480,6 @@ public:
 
 	int generateRandomNumber(int size)
 	{
-		//TODO: create a more random rng using time as the seed
-
 		//randomNum = startingNum + randFunct % size
 		int randomN = 1 + rand() % size;
 		return randomN;
